@@ -137,6 +137,9 @@ Go to backend folder:
 ### Assignment Task Created
 ![Assignment Listing](./screenshots/task-created.png)
 
+### Assignment Edit Task
+![Assignment Listing](./screenshots/edit-task.png)
+
 ### Assignment filtering all
 ![Assignment Listing](./screenshots/filtering-all.png)
 
@@ -157,6 +160,9 @@ Go to backend folder:
 
 ### Assignment Pagination Page Two
 ![Assignment Listing](./screenshots/pagination-page2.png)
+
+### Assignment Logout Toast
+![Assignment Listing](./screenshots/logout-page.png)
 
 ### Assignment Registeration New User
 ![Assignment Listing](./screenshots/registeration-new.png)
