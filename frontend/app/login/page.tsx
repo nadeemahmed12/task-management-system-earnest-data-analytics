@@ -19,10 +19,11 @@ export default function LoginPage() {
         email,
         password,
       });
+      alert("Login successful");
 
       localStorage.setItem("accessToken", res.data.accessToken);
-
       localStorage.setItem("refreshToken", res.data.refreshToken);
+      localStorage.setItem("userEmail", email);
 
       router.push("/dashboard");
     } catch (err) {

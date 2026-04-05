@@ -8,16 +8,14 @@ export interface AuthRequest extends Request {
 export function verifyToken(
   req: AuthRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
-
   try {
-
     const header = req.headers.authorization;
 
     if (!header || !header.startsWith("Bearer ")) {
       return res.status(401).json({
-        message: "Unauthorized"
+        message: "Unauthorized",
       });
     }
 
@@ -25,7 +23,7 @@ export function verifyToken(
 
     if (!token) {
       return res.status(401).json({
-        message: "Token missing"
+        message: "Token missing",
       });
     }
 
@@ -33,26 +31,18 @@ export function verifyToken(
 
     if (!secret) {
       return res.status(500).json({
-        message: "JWT secret missing"
+        message: "JWT secret missing",
       });
     }
 
-    const payload = jwt.verify(
-      token,
-      secret
-    ) as unknown as { userId: number };
+    const payload = jwt.verify(token, secret) as unknown as { userId: number };
 
     req.userId = payload.userId;
 
     next();
-
-  }
-  catch {
-
+  } catch {
     return res.status(401).json({
-      message: "Invalid token"
+      message: "Invalid token",
     });
-
   }
-
 }

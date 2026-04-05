@@ -22,6 +22,8 @@ export default function Dashboard() {
   const [status, setStatus] = useState("all");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const username = userEmail?.split("@")[0];
 
   const fetchTasks = async () => {
     try {
@@ -43,10 +45,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    const email = localStorage.getItem("userEmail");
 
     if (!token) {
       router.push("/login");
       return;
+    }
+    if (email) {
+      setUserEmail(email);
     }
 
     fetchTasks();
@@ -134,13 +140,46 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-3xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">Task Dashboard</h1>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg shadow"
-          >
-            Logout
-          </button>
+         <div>
+
+    <h1 className="text-3xl font-bold text-gray-800">
+      📋 Task Dashboard
+    </h1>
+
+    <p className="text-gray-500">
+      Manage your daily tasks efficiently
+    </p>
+
+  </div>
+
+
+  <div className="flex items-center gap-4">
+
+    <div className="flex items-center gap-3 bg-white px-3 py-2 rounded-lg shadow">
+
+      <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white w-9 h-9 flex items-center justify-center rounded-full font-semibold">
+
+        {username?.charAt(0).toUpperCase()}
+
+      </div>
+
+      <span className="font-medium text-gray-700">
+
+      Welcome! {username}
+
+    </span>
+    </div>
+
+
+    <button
+      onClick={handleLogout}
+      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow"
+    >
+      Logout
+    </button>
+
+  </div>
+
         </div>
 
         {/* search */}
@@ -191,16 +230,18 @@ export default function Dashboard() {
           />
 
           <button
-           className={`px-5 py-2 text-white rounded-lg shadow w-full sm:w-auto transition ${
+            className={`px-5 py-2 text-white rounded-lg shadow w-full sm:w-auto transition ${
               editingId ? "bg-green-500" : "bg-blue-500"
             }`}
           >
             {editingId ? "Update Task" : "Create Task"}
           </button>
         </form>
-        {loading && <p className="text-center mt-4 text-gray-500 animate-pulse">
-Loading tasks...
-</p>}
+        {loading && (
+          <p className="text-center mt-4 text-gray-500 animate-pulse">
+            Loading tasks...
+          </p>
+        )}
 
         {/* list */}
 
@@ -211,7 +252,9 @@ Loading tasks...
               className="bg-white shadow-md rounded-xl p-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 hover:shadow-lg transition"
             >
               <div>
-                <h3 className="font-semibold text-lg text-gray-800">{task.title}</h3>
+                <h3 className="font-semibold text-lg text-gray-800">
+                  {task.title}
+                </h3>
 
                 <p className="text-gray-600">{task.description}</p>
               </div>

@@ -15,7 +15,7 @@ app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
 
   res.json({
-    message: "API working 🚀",
+    message: "API working",
     users,
   });
 });
